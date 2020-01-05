@@ -1,0 +1,17 @@
+cluster:
+  name: cluster
+  privateKey: cluster-key
+machines:
+- count: 1
+  spec:
+    image: quay.io/footloose/ubuntu18.04
+    name: footloose-k3s-%d
+    portMappings:
+    - containerPort: 22
+      hostPort: 2222
+    - containerPort: 6443
+      hostPort: 6443
+    privileged: true
+    volumes:
+      - type: volume
+        destination: /var/lib/rancher/k3s

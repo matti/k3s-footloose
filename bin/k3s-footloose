@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+footloose delete
+
+footloose create
+footloose ssh root@footloose-k3s-0 -- '
+apt-get update && apt-get install -y kmod;
+bash -c "curl -sfL https://get.k3s.io | sh -"
+'
+docker cp cluster-footloose-k3s-0:/etc/rancher/k3s/k3s.yaml .
+
+echo "export KUBECONFIG=k3s.yaml"
